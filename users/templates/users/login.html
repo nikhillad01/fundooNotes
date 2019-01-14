@@ -1,0 +1,36 @@
+<!--create html page for login-->
+{% extends "users/base1.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="post" >
+            {% csrf_token %}
+
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In Here</legend>
+                 <!--{{ form|crispy }}-->
+            </fieldset>
+
+            <div class="form-group">
+                <label><b>Username</b></label>
+               <input type="text" name="username" maxlength="150" autofocus="" class="textinput textInput form-control" required="" id="username">
+            </div>
+            <div class="form-group">
+               <label><b>Password</b></label>
+                <input type="password" name="password" class="textinput textInput form-control" required="" id="password">
+            </div>
+            <div class="form-group">
+                 <button id="btn" class="btn btn-outline-info" type="submit">Log In</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{% url 'register'  %}">Sign Up Now</a>
+                <a href="{% url 'password_reset' %}" id="btn2" class="btn btn-link">Forgot your password?</a>
+
+            </small>
+        </div>
+    </div>
+{% endblock content %}
+
+
