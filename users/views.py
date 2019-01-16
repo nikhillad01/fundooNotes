@@ -1,4 +1,4 @@
-from .forms import UseRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UseRegistrationForm, UserUpdateForm, ProfileUpdateForm, CreateNoteForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from rest_framework_jwt.settings import api_settings
@@ -13,22 +13,13 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from .models import Profile
+import json
 
 
 def home(request):
     return render(request, 'users/home.html')
 
 def home1(request):
-    # profile=Profile.objects.all()
-    # if request.method == 'POST':
-    #     if request.is_ajax():
-    #         image = request.FILES.get('Upload Image')
-    #
-    #         new_profile=Profile(image=image)
-    #         new_profile.save()
-    #
-    # # return render_to_response('home.html', {'profile':profile}, )
-
 
     return render(request, 'users/crop_profile_pic.html')
 
@@ -198,6 +189,45 @@ def activate(request, uidb64, token):
         return redirect('login')
 
 
+from .serializers import NoteSerializer
+from .models import Notes
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+
+class addnote(APIView):
+    def post(self, request, format=None):
+        serializer = NoteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class updatenote(APIView):
+    def put(self, request, pk, format=None):
+        note = Notes.objects.get(pk=pk)
+        serializer = NoteSerializer(note, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class deletenote(APIView):
+    def delete(self, request, pk, format=None):
+        note = Notes.objects.get(pk=pk)
+        note.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class getnotes(APIView):
+    def get(self, request, uid, format=None):
+        note_list = Notes.objects.filter(id=uid)
+        serializer = NoteSerializer(note_list, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 

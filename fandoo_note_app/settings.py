@@ -137,7 +137,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'apps.util.jwt_token.JWTAuthByQueryStringOrHeader',),
+       ),
 
 }
 
@@ -169,6 +169,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'profile'
 
 LOGIN_URL='login'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 JWT_AUTH = {
     'JWT_ENCODE_HANDLER':

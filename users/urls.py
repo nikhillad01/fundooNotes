@@ -3,14 +3,20 @@ from . import views
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 # from users.views import loginview
+from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
-     path('', views.home, name='home'),
-     path('home/', views.home1, name='home'),
-     path('login/', views.user_login, name='login'),
-     path('register/', views.register, name='register'),
-     path('profile/', views.profile, name='profile'),
+    path('', views.home, name='home'),
+    path('home/', views.home1, name='home'),
+    path('login/', views.user_login, name='login'),
+    path('register/', views.register, name='register'),
+    path('profile/', views.profile, name='profile'),
+    # path('createnote/', views.create_note, name='createnote'),
+    path('getnotes/<slug:uid>/',views.getnotes.as_view()),
+    path('addnote/',views.addnote.as_view()),
+    path('updatenote/<int:pk>/',views.updatenote.as_view()),
+    path('deletenote/<int:pk>/',views.deletenote.as_view()),
 
      #path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
      #path('login/', views.loginview, name='login'),
@@ -42,4 +48,4 @@ urlpatterns = [
 ]
 
 
-
+urlpatterns = format_suffix_patterns(urlpatterns)
