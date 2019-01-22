@@ -12,11 +12,14 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('register/', views.register, name='register'),
     path('profile/', views.profile, name='profile'),
-    # path('createnote/', views.create_note, name='createnote'),
+    path('index/', views.index, name='index'),
+
     path('getnotes/<slug:uid>/',views.getnotes.as_view()),
     path('addnote/',views.addnote.as_view()),
     path('updatenote/<int:pk>/',views.updatenote.as_view()),
     path('deletenote/<int:pk>/',views.deletenote.as_view()),
+
+    url(r'^lazy_load_notes/$', views.lazy_load_notes, name='lazy_load_notes'),
 
      #path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
      #path('login/', views.loginview, name='login'),

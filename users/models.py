@@ -16,7 +16,7 @@ class Profile(models.Model):
     # def save(self):
     #     super().save()
 
-
+# create Note model
 class Notes(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()

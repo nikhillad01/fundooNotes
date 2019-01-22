@@ -171,6 +171,14 @@ LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL='login'
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = (
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'OPTIONS',
+    )
 
 JWT_AUTH = {
     'JWT_ENCODE_HANDLER':
