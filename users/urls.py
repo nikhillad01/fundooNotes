@@ -7,17 +7,20 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('home/', views.home1, name='home'),
-    path('login/', views.user_login, name='login'),
+    path('home/', views.home, name='home'),
+    path('home1/', views.home1, name='home'),
+    path('', views.user_login, name='login'),
     path('register/', views.register, name='register'),
     path('profile/', views.profile, name='profile'),
     path('index/', views.index, name='index'),
+    path('createnote/',views.createnote,name='createnote'),
+    path('updatenotes/<int:pk>',views.updatenotes,name='updatenotes'),
+    path('deleteenote/<int:pk>',views.deleteenote,name='deleteenote'),
 
     path('getnotes/<slug:uid>/',views.getnotes.as_view()),
     path('addnote/',views.addnote.as_view()),
     path('updatenote/<int:pk>/',views.updatenote.as_view()),
-    path('deletenote/<int:pk>/',views.deletenote.as_view()),
+    path('deletenote/<int:pk>',views.deletenote.as_view()),
 
     url(r'^lazy_load_notes/$', views.lazy_load_notes, name='lazy_load_notes'),
 
@@ -49,6 +52,5 @@ urlpatterns = [
          name='password_reset_complete'),
 
 ]
-
 
 urlpatterns = format_suffix_patterns(urlpatterns)

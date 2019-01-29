@@ -2,7 +2,7 @@ from .forms import UseRegistrationForm, UserUpdateForm, ProfileUpdateForm, Creat
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from rest_framework_jwt.settings import api_settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
@@ -136,7 +136,7 @@ def user_login(request):
                 login(request,user)
                 # generate token for user
                 jwt_token = get_jwt_token(user)
-                url = '/profile/'
+                url = '/home/'
                 response = redirect(url)
                 # Add token in header of url
                 response['Token'] = jwt_token
@@ -256,8 +256,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 
 
-
-
 def index(request):
     notes = Notes.objects.all()[:5]
     return render(request, 'notes/index.html', {'notes': notes})
@@ -286,4 +284,47 @@ def lazy_load_notes(request):
     return JsonResponse(output_data)
     # return render(request, 'notes/notes_list.html', {{'notes': notes}})
 
+from rest_framework.filters import OrderingFilter
+def createnote(request):
+    if request.method == 'POST':
+        # get username and password from submitted form
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        notes=Notes(title=title,description=description)
+
+        if title !="" and description!="":
+            notes.save()
+           
+        allnotes=Notes.objects.all().order_by('-created_time')
+        print(allnotes)
+        context={#'title':title,
+                 #'description':description
+                 'allnotes':allnotes}
+    return render(request, 'notes/create-note.html',context)
+
+
+def deleteenote(request, pk):
+    note = Notes.objects.get(pk=pk)
+    note.delete()
+    allnotes = Notes.objects.all().order_by('-created_time')
+    context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+
+
+def updatenotes(request, pk):
+    if request.method == 'POST':
+        note = Notes.objects.get(pk=pk)
+        print(note)
+        note.title = request.POST.get('title')
+        print(note.title)
+        note.description = request.POST.get('description')
+        if note.title !="" and note.description!="":
+            note.save()
+        allnotes = Notes.objects.all().order_by('-created_time')
+        context = {  # 'title':title,
+            # 'description':description
+            'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
 

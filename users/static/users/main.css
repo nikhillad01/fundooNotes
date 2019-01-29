@@ -1,11 +1,19 @@
+/* demo shizzle only */
 body {
-  background: #fafafa;
-  color: #333333;
-  /*margin-top: 5rem;*/
+  background: #eee;
+  max-width: 900px;
+  margin: 30px auto;
+
+/*   outline: 1px solid #ccc; */
 }
 
+/* Still use global css (not utility css) for base typography etc? */
+p {
+  margin-bottom: 0.8em;
+}
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
+
 }
 
 ul {
@@ -27,6 +35,15 @@ ul {
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
+
+/*#navigationbar{
+ -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+
+    height: 71px;
+
+}*/
 
 .content-section {
     background: #ffffff;
@@ -667,16 +684,14 @@ a.article-title:hover {
 
 #inputlg{
 
-   width: 625px;
-   height: 50px;
-
-
-   border:none;
-   background: transparent;
-   font: normal 16px Roboto,sans-serif;
-   background: rgba(0,0,0,0.04);
-   margin-top: -76px;
-   margin-left: 229px;
+   width: 556px;
+    height: 50px;
+    border: none;
+    background: transparent;
+    font: normal 16px Roboto,sans-serif;
+    background: rgba(0,0,0,0.04);
+    margin-top: -76px;
+    margin-left: 317px;
 
    }
 
@@ -701,6 +716,7 @@ a.article-title:hover {
 #wrapper {
   padding-left: 250px;
   transition: all 0.4s ease 0s;
+  margin-top: 100px;
 }
 
 #sidebar-wrapper {
@@ -714,6 +730,7 @@ a.article-title:hover {
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
+  margin-top: 21px;
 }
 
 #wrapper.active {
@@ -761,7 +778,7 @@ a.article-title:hover {
   width: 20px;
   line-height: 18px;
   margin-top: -16px;
-  margin-left: -83px;
+  margin-left: -106px;
 }
 
 /*.sidebar-nav li a:hover,
@@ -843,7 +860,7 @@ margin-left: -39px;
 
 .gb_Uc{
 margin-top: 30px;
-margin-left: 4px;
+margin-left: -20px;
 }
 
 /* crop image window*/
@@ -877,4 +894,274 @@ margin-left: 4px;
 #zoom-out{
    margin-bottom: -25px;
    margin-top: -25px;
+}
+
+/*text fild (take a note)*/
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+
+#description{
+    margin-top: -151px;
+    width: 627px
+    height: 92px;
+    margin-left: -15px;
+    box-shadow: none;
+    border-color: transparent;
+    }
+
+/*panel*/
+.panel-danger {
+   border-color: #f5ecec;
+    width: 616px;
+    height: 171px;
+    margin-left: -42px;
+    margin-top: 43px
+}
+#menu{
+    border: none;
+    width: 602px;
+    height: 171px;
+    margin-left: -15px;
+    margin-top: -14px;
+
+
+}
+#title{
+ box-shadow: none;
+ border-color: transparent;
+ margin-top: -46px;
+}
+
+/*menu bar of note*/
+.search-btn{
+
+    margin-top: -7px;
+    margin-left: 70px;
+    height: 49px;
+    width: 40px;
+    border: none;
+    color: rgba(0,0,0,.2);
+    background: rgba(0,0,0,0.04);
+}
+
+#pin{
+    padding-left: 580px;
+    content: "\e146";
+    padding-right: -64px;
+    color: black
+}
+
+/* card layout */
+.flex-row {
+	display: flex;
+	flex-wrap: wrap;
+}
+.flex-row > [class*='col-'] {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-row .thumbnail,
+.flex-row .caption {
+	flex-direction: column;
+	display: flex;
+	flex: 1 0 auto;
+	height: auto;
+	position: relative;
+
+}
+.flex-text {
+	flex-grow: 1;
+}
+.flex-row img {
+	min-width: 0;
+	width: 100%;
+}
+
+
+body {font-family: sans-serif;}
+p {color: #666;}
+
+h2 {
+  font-size: 2em;
+  color: #e74c3c;
+}
+.centered {
+    margin:
+     0 auto;
+    padding: 0 1em;
+}
+
+@media screen and (min-width: 52em) {
+    .centered {
+        max-width: 52em;
+    }
+}
+
+/*--------------------------------------------------------------
+Header styles minus menu
+--------------------------------------------------------------*/
+
+.masthead {
+    background: #e74c3c;
+  	box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
+}
+
+.site-title {
+    margin: 0 0 1em;
+    padding: 1em 0;
+    font-size: 2em;
+    font-weight: 300;
+    text-align: center;
+    color: black;
+}
+
+@media screen and (min-width: 44.44em) {
+    .site-title {
+        font-size: 2em;
+    }
+}
+
+@media screen and (min-width: 50em) {
+    .site-title {
+        font-size: 2.5em;
+    }
+}
+
+.site-title a {
+    color: hsl(5, 45%, 95%);
+    text-decoration: none;
+}
+
+.site-title a:hover {
+    text-decoration: underline;
+}
+
+/* Card Based Layout - Base styles */
+/*body {
+  background: #ecf0f1;
+  line-height: 1.4;
+}*/
+
+.site-title {
+	color: white;
+}
+
+.card {
+	background: white;
+	margin-bottom: 2em;
+}
+
+.card a {
+	color: black;
+	text-decoration: none;
+	width: 278px;
+	margin-left: -97px;
+
+}
+
+.card a:hover {
+	box-shadow: 3px 3px 8px hsl(0, 0%, 70%);
+}
+
+.card-content {
+	padding: 1.4em;
+}
+
+.card-content h2 {
+	margin-top: 0;
+	margin-bottom: .5em;
+	font-weight: normal;
+	color: #0e0e0e;
+}
+
+.card-content p {
+	font-size: 95%;
+}
+
+/*img {
+  width: 100%;
+  height: auto;
+}*/
+
+/* Flexbox styles */
+@media screen and (min-width: 40em) {
+  .cards {
+    margin-top: -1em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    margin-bottom: 1em;
+    display: flex;
+    flex: 0 1 calc(50% - 0.5em);
+    /* width: calc(50% - 1em); */
+  }
+} /* mq 40em*/
+
+.centered {
+    max-width: 52em;
+    margin-left: -234px;
+}
+
+@media screen and (min-width: 60em) {
+  .cards {
+    margin-top: inherit;
+  }
+
+  .card {
+    margin-bottom: 2em;
+    display: flex;
+    flex: 0 1 calc(33% - 0.5em);
+    /* width: calc(33% - 1em); */
+  }
+} /* mq 60em*/
+
+.btn-card {
+    border: none;
+    background: white;
+    margin-right: 10px;
+}
+
+#dropdownMenu1{
+    height: 32px;
+    background: white;
+    margin-left: 118px;
+    margin-top: -111px;
+}
+
+.dropdown-menu{
+    margin-left: 67px;
+    margin-top: -49px;
+}
+
+#modal-text{
+    width: 615px;
+    border: none;
+}
+
+#menutitle{
+    border: none;
+    width: 602px;
+    height: 171px;
+    margin-left: -15px;
+    margin-top: -51px;
+
+
+}
+
+#modal-textarea{
+    margin-top: -143px;
+    width: 616px;
+    margin-left: -16px;
+    z-index: auto;
+    position: relative;
+    line-height: 20px;
+    font-size: 14px;
+    transition: none 0s ease 0s;
+    background: transparent !important;
+    border: none;
 }

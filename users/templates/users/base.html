@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>fundooNotes</title>
     <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">-->
+
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -31,12 +33,13 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
-    
+    <!--<link href="starter-template.css" rel="stylesheet">-->
+
 </head>
 <body>
+
 <div id="wrapper">
-    <nav class="navbar navbar navbar-fixed-top" role="navigation">
+    <nav id="navigationbar" class="navbar navbar navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
     			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -54,12 +57,19 @@
                         <i class="fa fa-bars"></i>
                     </a>
                     <a style="margin-left: -36px;color: #635f5f;font-size: 21px;" href="#">fundooNotes</a>
-                </div>
+                    <button class="search-btn" aria-label="Search" role="button" id="searchicon">
+                          <svg focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                              <path d="M0 0h24v24H0z" fill="none"></path>
+                          </svg>
+                    </button>
+
+                   </div>
 			</div>
             <form class="navbar-form navbar-left">
                   <div class="form-group">
                         <!--<input class="form-control mr-lg-2" type="search" placeholder="Search" aria-label="Search">-->
-                          <input class="form-control input-lg" id="inputlg" type="text" type="search" placeholder="Search" aria-label="Search">
+                          <input class="form-control input-lg" id="inputlg" type="text" type="search" placeholder="        Search" aria-label="Search">
 
                   </div>
                   <button type="button" class="btn "><span class="glyphicon glyphicon-repeat"></span> </button>
@@ -71,7 +81,7 @@
 
             </form>
 
-			<div id="navbar" class="collapse navbar-collapse">
+			<div id="navbar" class="collapse navbar-collapse" style="background-color: white;">
 				<ul class="nav navbar-nav">
 
 
@@ -120,39 +130,118 @@
         <!--<div class="page-content">-->
             <!--<div class="container-fluid">-->
                 <!--<div class="row">-->
-                    <!--<div class="col-md-6">-->
-                        <!--<div class="panel panel-danger">-->
-                            <!--<div class="panel-heading">-->
-                                    <!--Panel 1-->
-                            <!--</div>-->
-                            <!--<div class="panel-body">-->
-                                <!--content body-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="col-md-6">-->
-                        <!--<div class="panel panel-success">-->
-                            <!--<div class="panel-heading">-->
-                                    <!--Panel 1-->
-                            <!--</div>-->
-                            <!--<div class="panel-body">-->
-                                <!--content body-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+                    <!--<div class="col-md-13">-->
+
+                        <div class="panel panel-danger">
+                            <div class="panel-body">
+                                 <form method="post" action="{% url 'createnote' %}" >
+                                 {% csrf_token %}
+                                     <div class="form-group">
+                                         <div role="button" class="pin-note"><span id="pin" class="glyphicon glyphicon-pushpin"></span></div>
+                                     </div>
+                                     <div class="form-group">
+                                         <div id="menu"><input type="text" name="title" id="title" maxlength="150" autofocus="" class="textinput textInput form-control" placeholder="Title"></div>
+                                     </div>
+                                     <div class="form-group">
+                                         <div class="form-group shadow-textarea">
+                                             <textarea class="form-control z-depth-1" id="description"name="description" rows="3" placeholder="Take a note..."></textarea>
+                                         </div>
+                                     </div>
+
+                                 <div  id="note-button-1">
+                                 <div role="button" class="btn" style="margin: 7px; margin-left: -8px">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="remainder">
+                                 <path d="M13 9h-2v2H9v2h2v2h2v-2h2v-2h-2z"/>
+                                 <path d="M18 17v-6c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v6H4v2h16v-2h-2zm-2 0H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6zm-4 5c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"/>
+                                 </svg></div></a>
+                                 <ul class="dropdown-menu" id="note-button-1-actions" style="display:none">
+                                     <label>Remainder</label>
+                                  <li><a href="#">Later today</a></li>
+                                  <li><a href="#">Tomorrow</a></li>
+                                  <li><a href="#">Next week</a></li>
+                                  <li><a href="#"><svg height="18px" width="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="#000000">
+                                   <path d="m23.99 4c-11.05 0-19.99 8.95-19.99 20s8.94 20 19.99 20c11.05 0 20.01-8.95 20.01-20s-8.96-20-20.01-20zm0.01 36c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16z"/>
+                                   <path d="m0 0h48v48h-48z" fill="none"/>
+                                   <path d="m25 14h-3v12l10.49 6.3 1.51-2.46-9-5.34z"/>
+                                  </svg>
+                                  Select date and time</a></li>
+                                 </ul>
+                                 </div>
+                                 <div role="button" class="btn " style="margin: -20px;margin-top: -100px;margin-left: 48px;" aria-label="Collaborator">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="Collaborator">
+                                     <path d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 7c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1zm3-4v-3h-3V9h3V6h2v3h3v2h-3v3h-2z"/>
+                                     </svg>
+                                 </div>
+                                <div role="button" class="btn " style="margin: -39px; margin-left: 10px; margin-top: -115px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22zm0-18c-4.41 0-8 3.59-8 8s3.59 8 8 8c.28 0 .5-.22.5-.5a.54.54 0 0 0-.14-.35c-.41-.46-.63-1.05-.63-1.65a2.5 2.5 0 0 1 2.5-2.5H16c2.21 0 4-1.79 4-4 0-3.86-3.59-7-8-7z"/><circle cx="6.5" cy="11.5" r="1.5"/>
+                                    <circle cx="9.5" cy="7.5" r="1.5"/><circle cx="14.5" cy="7.5" r="1.5"/><circle cx="17.5" cy="11.5" r="1.5"/>
+                                    </svg>
+                                </div>
+                                <div role="button" class="btn " style="margin: -39px; margin-left:31px;margin-top: -113px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="pic">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/>
+                                    </svg>
+                                </div>
+                                <div role="button" class="btn " style="margin: -39px; margin-left: 32px;margin-top: -115px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="archive">
+                                    <path d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM6.24 5h11.52l.83 1H5.42l.82-1zM5 19V8h14v11H5zm11-5.5l-4 4-4-4 1.41-1.41L11 13.67V10h2v3.67l1.59-1.59L16 13.5z"/>
+                                    </svg>
+                                </div>
+                                <div  id="note-button-6">
+                                    <div role="button" class="btn " style="margin: -26px; margin-left: 269px; margin-top: -137px;">
+                                        <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" y="0px" x="0px" viewBox="0 0 18 18" enable-background="new 0 0 18 18"  height="18" width="25">
+                                          <path d="m9 5.5c1 0 1.8-0.8 1.8-1.8s-0.8-1.7-1.8-1.7-1.8 0.8-1.8 1.8 0.8 1.7 1.8 1.7zm0 1.7c-1 0-1.8 0.8-1.8 1.8s0.8 1.8 1.8 1.8 1.8-0.8 1.8-1.8-0.8-1.8-1.8-1.8zm0
+                                                 5.3c-1 0-1.8 0.8-1.8 1.8s0.8 1.7 1.8 1.7 1.8-0.8 1.8-1.8-0.8-1.7-1.8-1.7z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                  <ul class="dropdown-menu" id="note-button-6-actions" style="display:none">
+                                      <li><a href="#">Change labels</a></li>
+                                      <li><a href="#">Add drawing</a></li>
+                                      <li><a href="#">Show tick boxes</a></li>
+                                  </ul>
+
+                                <div role="button" class="btn " style="margin: -26px; margin-left: 329px; margin-top: -182px;">
+                                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                       <path d="M14.1 8H7.83l2.59-2.59L9 4 4 9l5 5 1.41-1.41L7.83 10h6.27c2.15 0 3.9 1.57 3.9 3.5S16.25 17 14.1 17H7v2h7.1c3.25 0 5.9-2.47 5.9-5.5S17.35 8 14.1 8z"/>
+                                   </svg>
+                                </div>
+                                 <div class="form-group">
+                                 <button id="close" name="close" class="btn btn-outline-info" type="submit" style="margin: -78px; margin-left: 519px; margin-top: -273px;" >Close</button>
+                                  </div>
+                        </form>
+                    </div>
+                </div>
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
 <!--</div>-->
+    <!--</div>-->
 
 
+    <main role="main" id="alert-msg" class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">
+                {{ message }}
+            </div>
+
+            {% endfor %}
+            {% endif %}
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+        {% block javascript %}
+        {% endblock %}
+    </div>
+    </main></div>
 </body>
 </html>
-
-
-
-
 
 
 

@@ -1,18 +1,25 @@
 {% for note in notes %}
 <div>
   {{forloop.counter}}
-  <h4>Title : {{ note.title }}</h4><br>
-  Description: {{ note.description }}<br>
-  {{ note.remainder }}<br>
-  {{ note.is_archived }}<br>
-  {{ note.is_deleted }}<br>
-  {{ note.color }}<br>
-  {{ note.image}}<br>
-  {{ note.trash }}<br>
-  {{ note.is_pinned }}<br>
-  {{ note.label }}<br>
-  {{ note.collaborate }}<br>
-  {{ note.user }}<br><br><br><br><br><br>
+  <!--<h4>Title : {{ note.title }}</h4><br>-->
+  <!--Description: {{ note.description }}<br>-->
+  <!--{{ note.remainder }}<br>-->
+  <!--{{ note.is_archived }}<br>-->
+  <!--{{ note.is_deleted }}<br>-->
+  <!--{{ note.color }}<br>-->
+  <!--{{ note.image}}<br>-->
+  <!--{{ note.trash }}<br>-->
+  <!--{{ note.is_pinned }}<br>-->
+  <!--{{ note.label }}<br>-->
+  <!--{{ note.collaborate }}<br>-->
+  <!--{{ note.user }}<br><br><br><br><br><br>-->
+  <div class="card" style="width: 18rem;">
+  <img class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">{{note.title}}</h5>
+    <p class="card-text">{{ note.description }}</p>
+   </div>
+   </div>
 
 </div>
 {% endfor %}
