@@ -22,6 +22,8 @@ urlpatterns = [
     path('updatenote/<int:pk>/',views.updatenote.as_view()),
     path('deletenote/<int:pk>',views.deletenote.as_view()),
 
+    path(' note_update/<int:pk>/', views.note_update.as_view(), name='note_update'),
+
     url(r'^lazy_load_notes/$', views.lazy_load_notes, name='lazy_load_notes'),
 
      #path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),

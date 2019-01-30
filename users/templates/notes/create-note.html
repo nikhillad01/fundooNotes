@@ -5,12 +5,11 @@
         $(document).ready(function () {
             $('#page-button').click(function () {
                 $('#modal-text').val($('#textbox').text());
-                $('#textbox').val("");
 
                 $('#modal-textarea').val($('#textarea').text());
-                $('#textarea').val("");
+
             });
-            <!--$('#myModal').click(function () {-->
+            <!--$('#myModal').on(function () {-->
                 <!--$('#modal-text').val($('').text());-->
                 <!--$('#textbox').val("");-->
 
@@ -29,15 +28,21 @@
 
       <article class="card">
 
-          <a href="{% url 'updatenotes' pk=note.id %}" data-toggle="modal" data-target="#myModal" id="page-button" >
+          <a href="#" data-toggle="modal" data-target="#myModal" id="page-button" >
           <figure class="thumbnail" style="  border: 0px solid #ddd;;padding: 0px;">
-          <img src="http://placekitten.com/810/610" alt="meow">
+          <!--<img src="http://placekitten.com/810/610" alt="meow">-->
           </figure>
           <div class="card-content">
             <h2 id="textbox" >{{note.title}}</h2>
             <p id="textarea">{{note.description}}</p>
           </div>
-             <div class="card-action">
+
+          <!-- .card-content -->
+        </a>
+      </article>
+
+    </section>
+       <div class="card-action">
                  <button type="button" class="btn-card ">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="remainder">
                                  <path d="M13 9h-2v2H9v2h2v2h2v-2h2v-2h-2z"/>
@@ -79,11 +84,6 @@
 
              </div>
 
-          <!-- .card-content -->
-        </a>
-      </article>
-
-    </section>
       <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" y="0px" x="0px" viewBox="0 0 18 18" enable-background="new 0 0 18 18"  height="18" width="25">
@@ -111,18 +111,17 @@
       <!-- Modal content-->
         <div class="panel panel-danger">
            <div class="modal-body">
-               <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-               <form method="POST" action='#' >
+               <form method="post" action="{% url 'updatenotes' pk=note.id %}">
                  {% csrf_token %}
                      <div class="form-group">
                          <div role="button" class="pin-note"><span id="pin" class="glyphicon glyphicon-pushpin"></span></div>
                      </div>
                      <div class="form-group">
-                         <div id="menutitle"><input type="text" name="title" id="modal-text" maxlength="150" autofocus="" class="textinput textInput form-control" placeholder="Title" value=""></div>
+                         <div id="menutitle"><input type="text" name="modal-text" id="modal-text" maxlength="150" autofocus="" class="textinput textInput form-control" placeholder="Title" value=""></div>
                      </div>
                      <div class="form-group">
-                         <div class="form-group shadow-textarea" >
-                             <textarea class="form-control z-depth-1" id="modal-textarea"name="description" rows="3" placeholder="Take a note..."   ></textarea>
+                         <div class="form-group shadow-textarea">
+                             <textarea class="form-control z-depth-1" id="modal-textarea"name="modal-textarea" rows="3" placeholder="Take a note..."   ></textarea>
                          </div>
                      </div>
 
@@ -186,9 +185,9 @@
                    </svg>
                 </div>
                  <div class="form-group">
-                 <button id="close" name="close" data-dismiss="modal" class="btn btn-outline-info" type="submit" style="margin: -78px; margin-left: 519px; margin-top: -273px;" >Close</button>
+                 <button id="close" name="close" class="btn btn-outline-info" type="submit" style="margin: -78px; margin-left: 519px; margin-top: -273px;" >Close</button>
                   </div>
-            </form>
+             </form>
           </div>
         </div>
 

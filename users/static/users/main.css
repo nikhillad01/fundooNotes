@@ -1078,6 +1078,7 @@ Header styles minus menu
 
 .card-content p {
 	font-size: 95%;
+	height: 38px;
 }
 
 /*img {
@@ -1130,7 +1131,10 @@ Header styles minus menu
     height: 32px;
     background: white;
     margin-left: 118px;
-    margin-top: -111px;
+
+    margin-top: -55px;
+    margin-left: 120px;
+}
 }
 
 .dropdown-menu{
@@ -1164,4 +1168,15 @@ Header styles minus menu
     transition: none 0s ease 0s;
     background: transparent !important;
     border: none;
+}
+
+
+/*.card-action {
+    margin-top: 143px;
+    margin-left: -274px;
+}*/
+
+.card-action{
+    margin-left: -91px;
+    margin-top: -56px;
 }

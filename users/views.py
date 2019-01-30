@@ -1,3 +1,5 @@
+from django.views.generic import UpdateView
+
 from .forms import UseRegistrationForm, UserUpdateForm, ProfileUpdateForm, CreateNoteForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -317,14 +319,50 @@ def updatenotes(request, pk):
     if request.method == 'POST':
         note = Notes.objects.get(pk=pk)
         print(note)
-        note.title = request.POST.get('title')
+        note.title = request.POST.get('modal-text')
         print(note.title)
-        note.description = request.POST.get('description')
-        if note.title !="" and note.description!="":
+        note.description = request.POST.get('modal-textarea')
+        if note.title !="" or note.description!="":
             note.save()
-        allnotes = Notes.objects.all().order_by('-created_time')
-        context = {  # 'title':title,
+            allnotes = Notes.objects.all().order_by('-created_time')
+            context = {  # 'title':title,
             # 'description':description
             'allnotes': allnotes}
-    return render(request, 'notes/create-note.html', context)
+        return render(request, 'notes/create-note.html', context)
 
+
+class note_update(UpdateView):
+    model = Notes
+    template_name ='notes/create-note.html'
+def post(self, request, *args, **kwargs):
+        print('----------------------------------')
+        response_data = {}
+        response_data['status'] = False
+        if kwargs.get('pk', None):
+            try:
+                print(request.POST,'mai hu')
+                print(kwargs,'mai hu kwargs')
+                pk = kwargs.get('pk', None)
+                print('i am pk', pk)
+                note = Notes.objects.get(pk=pk)
+                note.title = request.POST.get('modal-text')
+                note.description = request.POST.get('modal-textarea')
+                # obj.is_pinned = request.POST.get('is_pinned')
+                # obj.color = request.POST.get('color')
+                note.save()
+                response_data['status'] = True
+                response_data['message'] = "Updated Successfully"
+                allnotes = Notes.objects.all().order_by('-created_time')
+                context = {  # 'title':title,
+                    # 'description':description
+                    'allnotes': allnotes}
+                return render(request, 'notes/create-note.html', context)
+                # return redirect('show_notes') #i have added to redirect after successful updation
+            except Exception.DoesNotExist as e:
+                response_data['message'] = "Note doesnt exists"
+            except Exception as e:
+                response_data['message'] = 'something went wrong'
+
+        else:
+            response_data['message'] = "Missing note identifier (id)"
+        return HttpResponse(json.dumps(response_data), content_type='application/json')
