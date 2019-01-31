@@ -287,16 +287,18 @@ def lazy_load_notes(request):
     # return render(request, 'notes/notes_list.html', {{'notes': notes}})
 
 from rest_framework.filters import OrderingFilter
+# this method is to create new note
 def createnote(request):
     if request.method == 'POST':
         # get username and password from submitted form
         title = request.POST.get('title')
         description = request.POST.get('description')
         notes=Notes(title=title,description=description)
-
+        # title and description should not be null
         if title !="" and description!="":
+            # save it to database
             notes.save()
-           
+        # order notes according to it's creation time
         allnotes=Notes.objects.all().order_by('-created_time')
         print(allnotes)
         context={#'title':title,
@@ -304,9 +306,11 @@ def createnote(request):
                  'allnotes':allnotes}
     return render(request, 'notes/create-note.html',context)
 
-
+# this method is to delete the note
 def deleteenote(request, pk):
+    # get the note with requested id
     note = Notes.objects.get(pk=pk)
+    # delete note
     note.delete()
     allnotes = Notes.objects.all().order_by('-created_time')
     context = {  # 'title':title,
@@ -314,15 +318,19 @@ def deleteenote(request, pk):
         'allnotes': allnotes}
     return render(request, 'notes/create-note.html', context)
 
-
+# this method is to update note with given id
 def updatenotes(request, pk):
     if request.method == 'POST':
+        # get note with requested id
         note = Notes.objects.get(pk=pk)
         print(note)
+        # set new tile to requested id
         note.title = request.POST.get('modal-text')
         print(note.title)
+        # set new description to requested id
         note.description = request.POST.get('modal-textarea')
         if note.title !="" or note.description!="":
+            # save note
             note.save()
             allnotes = Notes.objects.all().order_by('-created_time')
             context = {  # 'title':title,
@@ -366,3 +374,24 @@ def post(self, request, *args, **kwargs):
         else:
             response_data['message'] = "Missing note identifier (id)"
         return HttpResponse(json.dumps(response_data), content_type='application/json')
+
+# this method is to make copy of note
+def copynote(request, pk):
+    if request.method == 'GET':
+        # get note with given id
+        note = Notes.objects.get(pk=pk)
+        # set title of requested id to new note
+        title = note.title
+        # set description of requested id to new note
+        description = note.description
+        # create ojbect of new copy
+        newcopy = Notes(title=title, description=description)
+        # save newcopy to database
+        newcopy.save()
+        allnotes = Notes.objects.all().order_by('-created_time')
+        print(allnotes)
+        context = {  # 'title':title,
+            # 'description':description
+            'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+

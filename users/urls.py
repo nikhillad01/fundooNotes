@@ -16,11 +16,13 @@ urlpatterns = [
     path('createnote/',views.createnote,name='createnote'),
     path('updatenotes/<int:pk>',views.updatenotes,name='updatenotes'),
     path('deleteenote/<int:pk>',views.deleteenote,name='deleteenote'),
+    path('copynote/<int:pk>', views.copynote, name='copynote'),
 
     path('getnotes/<slug:uid>/',views.getnotes.as_view()),
     path('addnote/',views.addnote.as_view()),
     path('updatenote/<int:pk>/',views.updatenote.as_view()),
     path('deletenote/<int:pk>',views.deletenote.as_view()),
+
 
     path(' note_update/<int:pk>/', views.note_update.as_view(), name='note_update'),
 

@@ -91,9 +91,10 @@
                                                  5.3c-1 0-1.8 0.8-1.8 1.8s0.8 1.7 1.8 1.7 1.8-0.8 1.8-1.8-0.8-1.7-1.8-1.7z"/>
         </svg>
        </button>
-       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style=" margin-left: 114px; margin-top: -22px;">
           <li><a href="{% url 'deleteenote' pk=note.id %}">Delete note</a></li>
           <li><a href="#">Add label</a></li>
+           <li><a href="{% url 'copynote' pk=note.id %}">Make copy</a></li>
       </ul>
      </div>
     <!-- .cards -->
