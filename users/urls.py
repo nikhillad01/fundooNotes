@@ -8,7 +8,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('home/', views.home, name='home'),
-    path('home1/', views.home1, name='home'),
+    # path('home1/', views.home1, name='home'),
     path('', views.user_login, name='login'),
     path('register/', views.register, name='register'),
     path('profile/', views.profile, name='profile'),
@@ -17,6 +17,16 @@ urlpatterns = [
     path('updatenotes/<int:pk>',views.updatenotes,name='updatenotes'),
     path('deleteenote/<int:pk>',views.deleteenote,name='deleteenote'),
     path('copynote/<int:pk>', views.copynote, name='copynote'),
+    path('setcolor/', views.setcolor, name='setcolor'),
+    path('isarchive/', views.isarchive, name='isarchive'),
+    path('showarchive/', views.showarchive, name='showarchive'),
+    path('showtrash/', views.showtrash, name='showtrash'),
+    path('readallnotes/', views.readallnotes, name='readallnotes'),
+    path('restore/<int:pk>', views.restore, name='restore'),
+    path('ispinned/', views.ispinned, name='ispinned'),
+
+
+
 
     path('getnotes/<slug:uid>/',views.getnotes.as_view()),
     path('addnote/',views.addnote.as_view()),

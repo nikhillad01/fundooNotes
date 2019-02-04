@@ -54,6 +54,7 @@ ul {
     margin-right: -8px;
     margin-left: 26px;
     margin-top: -49px;
+
 }
 
 #btn {
@@ -719,6 +720,11 @@ a.article-title:hover {
   margin-top: 100px;
 }
 
+#note-wrapper{
+    transition: all 0.4s ease 0s;
+    margin-top: 100px;
+    }
+
 #sidebar-wrapper {
   margin-left: -250px;
   top: 51px;
@@ -915,7 +921,7 @@ margin-left: -20px;
    border-color: #f5ecec;
     width: 616px;
     height: 171px;
-    margin-left: -42px;
+    margin-left: 111px;
     margin-top: 43px
 }
 #menu{
@@ -1107,6 +1113,7 @@ Header styles minus menu
     max-width: 52em;
     margin-left: 41px;
 
+
 }
 
 @media screen and (min-width: 60em) {
@@ -1129,14 +1136,23 @@ Header styles minus menu
 }
 
 #dropdownMenu1{
-    height: 32px;
-    background: white;
-    margin-left: 118px;
-
-    margin-top: -55px;
-    margin-left: 120px;
+    background-color: transparent;
+    height: 30px;
+    width: 40px;
+    margin-left: 185px;
+    margin-top: -158px;
+    box-shadow: none;
 }
 }
+#remainderbutton{
+background-color: transparent;
+  margin-left: -96px;
+  margin-top: -64px;
+}
+#remainder-dropdown{
+    margin-left: -103px;
+    margin-top: -22px;
+    }
 
 .dropdown-menu{
      margin-left: 114px;
@@ -1179,10 +1195,70 @@ Header styles minus menu
 }*/
 
 .card-action{
-    margin-left: -91px;
+    margin-left:-46px;
     margin-top: -56px;
 }
 
 .button-footer{
       margin-top: 40px;
+}
+
+.bgcolor{
+    border: none;
+    padding-right: 10px;
+    margin-left: 4px;
+    margin-bottom: 5px;
+}
+
+#color-menu{
+    background-color: transparent;
+    height: 30px;
+    width: 40px;
+    margin-left: 46px;
+    margin-top: -86px;
+    box-shadow: none;
+}
+#remainderMenu1{
+   width: 40px;
+    background-color: transparent;
+    margin-left: -51px;
+    margin-top: -13px;
+    height: 30px;
+    box-shadow: none;
+}
+#colaborator{
+    background-color: transparent;
+    height: 30px;
+    width: 40px;
+    margin-left: -1px;
+    margin-top: -49px;
+    box-shadow: none;
+}
+
+#imgbtn{
+    background-color: transparent;
+    height: 30px;
+    width: 40px;
+    margin-left: 94px;
+    margin-top: -123px;
+    box-shadow: none;
+    }
+#archive-btn{
+    background-color: transparent;
+    height: 30px;
+    width: 40px;
+    margin-left: 9px;
+    margin-top: -122px;
+    box-shadow: none;
+
+}
+#color-btn{
+    margin-left: 101px;
+    margin-top: -123px;
+    background: transparent;
+    box-shadow: none;
+}
+#ispin{
+    margin-left: 179px;
+    margin-top: -437px;
 }

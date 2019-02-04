@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from .models import Profile
 import json
+from django_ajax.decorators import ajax
 
 
 def home(request):
@@ -138,13 +139,13 @@ def user_login(request):
                 login(request,user)
                 # generate token for user
                 jwt_token = get_jwt_token(user)
-                url = '/home/'
+                url = '/readallnotes/'
                 response = redirect(url)
                 # Add token in header of url
                 response['Token'] = jwt_token
                 return response
                 # r = requests.post(url, data=json.dumps(payload), headers=headers)
-                # response = HttpResponseRedirect('/profile/')
+                # response = HttpResponseRedirect(' /profile/')
                 # return response
                 # return HttpResponse(jwt_token)
 
@@ -293,11 +294,13 @@ def createnote(request):
         # get username and password from submitted form
         title = request.POST.get('title')
         description = request.POST.get('description')
-        notes=Notes(title=title,description=description)
+        color= request.POST.get('color')
+        notes=Notes(title=title,description=description,color=color)
         # title and description should not be null
         if title !="" and description!="":
             # save it to database
             notes.save()
+            return redirect('readallnotes')
         # order notes according to it's creation time
         allnotes=Notes.objects.all().order_by('-created_time')
         print(allnotes)
@@ -308,14 +311,24 @@ def createnote(request):
 
 # this method is to delete the note
 def deleteenote(request, pk):
-    # get the note with requested id
-    note = Notes.objects.get(pk=pk)
-    # delete note
-    note.delete()
+    if request.method == 'GET':
+        # get the note with requested id
+        note = Notes.objects.get(pk=pk)
+        if note.trash == False:
+           note.trash = True
+           note.save()
+
+        else:
+            note.is_deleted=True
+            # delete note
+            note.delete()
+
+
+        return redirect('readallnotes')
     allnotes = Notes.objects.all().order_by('-created_time')
-    context = {  # 'title':title,
-        # 'description':description
-        'allnotes': allnotes}
+    context = {  # 'title':title,# 'description':description
+    'allnotes': allnotes}
+
     return render(request, 'notes/create-note.html', context)
 
 # this method is to update note with given id
@@ -332,17 +345,18 @@ def updatenotes(request, pk):
         if note.title !="" or note.description!="":
             # save note
             note.save()
-            allnotes = Notes.objects.all().order_by('-created_time')
-            context = {  # 'title':title,
-            # 'description':description
-            'allnotes': allnotes}
-        return render(request, 'notes/create-note.html', context)
+            return redirect('readallnotes')
+        allnotes = Notes.objects.all().order_by('-created_time')
+        context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
 
 
 class note_update(UpdateView):
     model = Notes
     template_name ='notes/create-note.html'
-def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         print('----------------------------------')
         response_data = {}
         response_data['status'] = False
@@ -394,4 +408,110 @@ def copynote(request, pk):
             # 'description':description
             'allnotes': allnotes}
     return render(request, 'notes/create-note.html', context)
+
+
+
+@ajax
+def setcolor(request):
+    if request.method == 'POST':
+
+        color = request.POST.get('color')
+        id = request.POST.get('id')
+        note = Notes.objects.get(id=id)
+        note.color= request.POST.get('color')
+        print(color)
+        print(id)
+        note.save()
+        return redirect('readallnotes')
+
+    allnotes = Notes.objects.all().order_by('-created_time')
+    print(allnotes)
+    context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+
+
+@ajax
+def isarchive(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        note = Notes.objects.get(id=id)
+
+        if note.is_archived == False:
+           note.is_archived = True
+           note.save()
+        else:
+            note.is_archived = False
+            note.save()
+
+        allnotes = Notes.objects.all().order_by('-created_time')
+        print(allnotes)
+        context = {  # 'title':title,
+            # 'description':description
+            'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+
+
+def showarchive(request):
+        allnotes = Notes.objects.all().order_by('-created_time')
+        print(allnotes)
+        context = {  # 'title':title,
+            # 'description':description
+            'allnotes': allnotes}
+        return render(request, 'notes/archived.html', context)
+
+
+def readallnotes(request):
+    allnotes = Notes.objects.all().order_by('-created_time')
+    print(allnotes)
+    context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+
+def showtrash(request):
+    allnotes = Notes.objects.all().order_by('-created_time')
+    print(allnotes)
+    context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/istrash.html', context)
+
+def restore(request,pk):
+    if request.method == 'GET':
+        # get the note with requested id
+        note = Notes.objects.get(pk=pk)
+        if note.trash == True:
+            note.trash = False
+            note.save()
+
+        return redirect('readallnotes')
+
+    allnotes = Notes.objects.all().order_by('-created_time')
+    print(allnotes)
+    context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+@ajax
+def ispinned(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        note = Notes.objects.get(id=id)
+        if note.is_pinned  == False:
+            note.is_pinned = True
+            note.save()
+        else:
+            note.is_pinned = False
+            note.save()
+        return redirect('readallnotes')
+    allnotes = Notes.objects.all().order_by('-created_time')
+    print(allnotes)
+    context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+
+
 

@@ -38,6 +38,7 @@
 </head>
 <body>
 
+
 <div id="wrapper">
     <nav id="navigationbar" class="navbar navbar navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
@@ -95,12 +96,12 @@
             <ul class="sidebar-nav nav">
                 <li class="sidebar-brand">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  class="gb_Uc"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"></path></svg>
-                    <a href="#Notes"><span class="fa fa-home solo"><b>Notes</b></span></a>
+                    <a href="{% url 'readallnotes' %}"><span class="fa fa-home solo"><b>Notes</b></span></a>
                 </li>
                 <li>
                     <a href="#Remainders">
                         <span  class="glyphicon glyphicon-bell"></span>
-                        <span class="fa fa-anchor solo"><b>Remainders</b></span>
+                        <span class="fa fa-anchor solo"><b>Reminders</b></span>
                     </a>
                 </li>
                 <li>
@@ -110,13 +111,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#Archive">
+                    <a href="{% url 'showarchive' %}">
                         <span class="glyphicon glyphicon-save"></span>
                         <span class="fa fa-anchor solo"><b>Archive</b></span>
                     </a>
                 </li>
                 <li>
-                    <a href="#Trash">
+                    <a href="{% url 'showtrash' %}">
                         <span class="glyphicon glyphicon-trash"></span>
                         <span class="fa fa-anchor solo"><b>Trash</b></span>
                     </a>
@@ -151,25 +152,25 @@
                                      <div class="button-footer">
 
                                  <div  class="dropdown" >
-                                     <button class="btn btn-default dropdown-toggle" type="button" id="remainderMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="background-color: transparent;">
+                                     <button class="btn btn-default dropdown-toggle" type="button" id="#remainderbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style=" background-color: transparent;box-shadow: none;height: 3px;width: 25px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="remainder">
                                          <path d="M13 9h-2v2H9v2h2v2h2v-2h2v-2h-2z"/>
                                          <path d="M18 17v-6c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v6H4v2h16v-2h-2zm-2 0H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6zm-4 5c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"/>
                                      </svg>
                                      </button>
 
-                                <ul class="dropdown-menu" aria-labelledby="remainderMenu1" style=" margin-left: 114px; margin-top: -22px;">
-                                     <label>Remainder</label>
-                                  <li><a href="#">Later today</a></li>
-                                  <li><a href="#">Tomorrow</a></li>
-                                  <li><a href="#">Next week</a></li>
-                                  <li><a href="#"><svg height="18px" width="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="#000000">
-                                   <path d="m23.99 4c-11.05 0-19.99 8.95-19.99 20s8.94 20 19.99 20c11.05 0 20.01-8.95 20.01-20s-8.96-20-20.01-20zm0.01 36c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16z"/>
-                                   <path d="m0 0h48v48h-48z" fill="none"/>
-                                   <path d="m25 14h-3v12l10.49 6.3 1.51-2.46-9-5.34z"/>
-                                  </svg>
-                                  Select date and time</a></li>
-                                 </ul>
+                                    <ul class="dropdown-menu" aria-labelledby="remainderMenu1" style=" margin-left: -17px; margin-top: -22px;">
+                                         <label>Remainder</label>
+                                      <li><a href="#">Later today</a></li>
+                                      <li><a href="#">Tomorrow</a></li>
+                                      <li><a href="#">Next week</a></li>
+                                      <li><a href="#"><svg height="18px" width="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="#000000">
+                                       <path d="m23.99 4c-11.05 0-19.99 8.95-19.99 20s8.94 20 19.99 20c11.05 0 20.01-8.95 20.01-20s-8.96-20-20.01-20zm0.01 36c-8.84 0-16-7.16-16-16s7.16-16 16-16 16 7.16 16 16-7.16 16-16 16z"/>
+                                       <path d="m0 0h48v48h-48z" fill="none"/>
+                                       <path d="m25 14h-3v12l10.49 6.3 1.51-2.46-9-5.34z"/>
+                                      </svg>
+                                      Select date and time</a></li>
+                                     </ul>
                                  </div>
 
 
@@ -178,24 +179,49 @@
                                      <path d="M9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 7c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1zm3-4v-3h-3V9h3V6h2v3h3v2h-3v3h-2z"/>
                                      </svg>
                                  </div>
-                                <div role="button" class="btn " style="margin: -39px; margin-left: 10px; margin-top: -115px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22zm0-18c-4.41 0-8 3.59-8 8s3.59 8 8 8c.28 0 .5-.22.5-.5a.54.54 0 0 0-.14-.35c-.41-.46-.63-1.05-.63-1.65a2.5 2.5 0 0 1 2.5-2.5H16c2.21 0 4-1.79 4-4 0-3.86-3.59-7-8-7z"/><circle cx="6.5" cy="11.5" r="1.5"/>
-                                    <circle cx="9.5" cy="7.5" r="1.5"/><circle cx="14.5" cy="7.5" r="1.5"/><circle cx="17.5" cy="11.5" r="1.5"/>
+
+                               <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="color-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                       <path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22zm0-18c-4.41 0-8 3.59-8 8s3.59 8 8 8c.28 0 .5-.22.5-.5a.54.54 0 0 0-.14-.35c-.41-.46-.63-1.05-.63-1.65a2.5 2.5 0 0 1 2.5-2.5H16c2.21 0 4-1.79 4-4 0-3.86-3.59-7-8-7z"/><circle cx="6.5" cy="11.5" r="1.5"/>
+                                       <circle cx="9.5" cy="7.5" r="1.5"/><circle cx="14.5" cy="7.5" r="1.5"/><circle cx="17.5" cy="11.5" r="1.5"/>
                                     </svg>
+                                </button>
+                                   <ul class="dropdown-menu" aria-labelledby="color-menu" style=" margin-left: 114px; margin-top: -22px;">
+                                     <div class="row1">
+                                        <input id="qqq" class="bgcolor" type="button" style="background-color:white" value="    " name="white" onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#D7BDE2" value="    " name="#D7BDE2" onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#A3E4D7" value="    " name="#A3E4D7" onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#AEB6BF  " value="    " name="#AEB6BF  " onclick="changeColor(this,{{note.id}})" />
+                                    </div>
+                                    <div class="row1">
+                                        <input class="bgcolor" type="button" style="background-color:#FAD7A0  " hover="background-color:#3e8e41" value="    " name="#FAD7A0  " onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#85C1E9  " value="    " name="#85C1E9  " onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#EDBB99" value="    " name="#EDBB99" onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#D2F5B4" value="    " name="#D2F5B4" onclick="changeColor(this,{{note.id}})" />
+                                    </div>
+                                    <div class="row3">
+                                        <input class="bgcolor" type="button" style="background-color:#CDE380  " value="    " name="#CDE380  " onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#E6A6AB  " value="    " name="#E6A6AB  " onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#B2B8E2  " value="    " name="#B2B8E2  " onclick="changeColor(this,{{note.id}})" />
+                                        <input class="bgcolor" type="button" style="background-color:#DCE391  " value="    " name="#DCE391  " onclick="changeColor(this,{{note.id}})" />
+                                    </div>
+
+                                 </ul>
                                 </div>
-                                <div role="button" class="btn " style="margin: -39px; margin-left:31px;margin-top: -113px;">
+
+                                <div role="button" class="btn " style="margin: -39px; margin-left: 149px;margin-top: -191px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="pic">
                                     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z"/>
                                     </svg>
                                 </div>
-                                <div role="button" class="btn " style="margin: -39px; margin-left: 32px;margin-top: -115px;">
+                                <div role="button" class="btn " style="margin: -39px;margin-left: 35px;margin-top: -190px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" id="archive">
                                     <path d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM6.24 5h11.52l.83 1H5.42l.82-1zM5 19V8h14v11H5zm11-5.5l-4 4-4-4 1.41-1.41L11 13.67V10h2v3.67l1.59-1.59L16 13.5z"/>
                                     </svg>
                                 </div>
                                 <div  id="note-button-6">
-                                    <div role="button" class="btn " style="margin: -26px; margin-left: 269px; margin-top: -137px;">
+                                    <div role="button" class="btn " style="margin: -26px;margin-left: 265px;margin-top: -213px;">
                                         <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" y="0px" x="0px" viewBox="0 0 18 18" enable-background="new 0 0 18 18"  height="18" width="25">
                                           <path d="m9 5.5c1 0 1.8-0.8 1.8-1.8s-0.8-1.7-1.8-1.7-1.8 0.8-1.8 1.8 0.8 1.7 1.8 1.7zm0 1.7c-1 0-1.8 0.8-1.8 1.8s0.8 1.8 1.8 1.8 1.8-0.8 1.8-1.8-0.8-1.8-1.8-1.8zm0
                                                  5.3c-1 0-1.8 0.8-1.8 1.8s0.8 1.7 1.8 1.7 1.8-0.8 1.8-1.8-0.8-1.7-1.8-1.7z"/>
@@ -208,13 +234,13 @@
                                       <li><a href="#">Show tick boxes</a></li>
                                   </ul>
 
-                                <div role="button" class="btn " style="margin: -26px; margin-left: 329px; margin-top: -182px;">
+                                <div role="button" class="btn " style="margin: -26px; margin-left: 322px;margin-top: -253px;">
                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                        <path d="M14.1 8H7.83l2.59-2.59L9 4 4 9l5 5 1.41-1.41L7.83 10h6.27c2.15 0 3.9 1.57 3.9 3.5S16.25 17 14.1 17H7v2h7.1c3.25 0 5.9-2.47 5.9-5.5S17.35 8 14.1 8z"/>
                                    </svg>
                                 </div>
                                  <div class="form-group">
-                                 <button id="close" name="close" class="btn btn-outline-info" type="submit" style="margin: -78px; margin-left: 519px; margin-top: -273px;" >Close</button>
+                                 <button id="close" name="close" class="btn btn-outline-info" type="submit" style="  margin: -78px;margin-left: 505px;margin-top: -343px;" >Close</button>
                                   </div>
                                      </div>
                               </form>
