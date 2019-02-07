@@ -736,7 +736,7 @@ a.article-title:hover {
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
-  margin-top: 21px;
+  margin-top: 36px;
 }
 
 #wrapper.active {
@@ -762,6 +762,7 @@ a.article-title:hover {
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-top: -42px;
 }
 
 .sidebar-nav li {
@@ -1262,3 +1263,64 @@ background-color: transparent;
     margin-left: 179px;
     margin-top: -437px;
 }
+
+/* label chips */
+/*.chip {
+  display: inline-block;
+  padding: 0 25px;
+  height: 50px;
+  font-size: 18px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+}
+
+.closebtn {
+  padding-left: 10px;
+  color: #888;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #000;
+}*/
+
+
+
+
+@heading-bg-color: #FFFFFF;
+@heading-text-color: #00000;
+.panel-theme {
+  background-color: @heading-bg-color;
+  border: none;
+  box-shadow: 1px 2px 6px rgba(0, 0, 0, .2);
+
+  & > .panel-heading {
+    background-color: @heading-bg-color;
+    border: none;
+
+    .badge {
+      color: @heading-bg-color;
+      background-color: @heading-text-color;
+    }
+
+    .panel-title {
+      font-weight: bold;
+    }
+  }
+
+  & > .panel-footer {
+    background-color: @heading-bg-color;
+    border: none;
+    border-top: 1px solid #E0E0E0;
+    + .panel-collapse > .panel-body {
+      border-bottom: none;
+    }
+  }
+}
+
+
+

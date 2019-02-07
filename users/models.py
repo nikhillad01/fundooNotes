@@ -18,6 +18,7 @@ class Profile(models.Model):
 
 # create Note model
 class Notes(models.Model):
+    # note_id = models.IntegerField(default=None,null=True)
     title = models.CharField(max_length=150)
     description = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True,null=True)
@@ -29,8 +30,7 @@ class Notes(models.Model):
     trash = models.BooleanField(default=False)
     is_pinned = models.NullBooleanField(blank=True, null=True, default=None)
     label = models.CharField(max_length=50)
-    collaborate = models.ManyToManyField(User, null=True, blank=True,
-                                    related_name='collaborated_user')
+    collaborate = models.ManyToManyField(User, null=True, blank=True,related_name='collaborated_user')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner', null=True, blank=True)
 
     def __str__(self):
@@ -38,6 +38,19 @@ class Notes(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
+
+# model to create label
+class Labels(models.Model):
+    label_name = models.CharField(max_length=150)
+    created_time = models.DateTimeField(auto_now_add=True, null=True)
+    note_id = models.ForeignKey(Notes, on_delete=models.CASCADE,null=True, blank=True,db_constraint=False)
+
+    def __str__(self):
+        return self.label_name
+
+
+
+
 
 
 

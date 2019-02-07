@@ -26,8 +26,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="{% static 'js/cropper.min.js' %}"></script>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'users/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'notes/label.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'users/main.css' %}">
     <script type="text/javascript" src="{% static 'users/script.js' %}"></script>
+    <!--<script src="assets/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>-->
+
     <!--<script type="text/javascript" src="crop-img.js"></script>-->
     <!--<script type="text/javascript" src="{% static 'users/crop-img.js' %}"></script>-->
 
@@ -90,34 +93,70 @@
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
+     <div class="sep">
+         <hr id="divider"><div class="sepText"></div>
+     </div>
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
         <nav id="spy">
             <ul class="sidebar-nav nav">
-                <li class="sidebar-brand">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  class="gb_Uc"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"></path></svg>
+                <li     style="margin-top: -16px;" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  class="gb_Uc" style="margin-bottom: -55px;margin-top: -10px;">
+                        <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" ></path>
+                    </svg>
                     <a href="{% url 'readallnotes' %}"><span class="fa fa-home solo"><b>Notes</b></span></a>
+
                 </li>
-                <li>
+                <li style="margin-top: -19px;">
                     <a href="#Remainders">
                         <span  class="glyphicon glyphicon-bell"></span>
                         <span class="fa fa-anchor solo"><b>Reminders</b></span>
                     </a>
                 </li>
-                <li>
-                    <a href="#lable">
+                <div class="sep">
+                     <hr class="seprator"><div class="sepText"></div>
+                </div>
+
+                <!--<ul class="label-item" id="label-item">-->
+
+                <div class="label-item">
+                    <span class="label-span"></span>
+                    <div class=" "style="    margin-left: 17px; margin-bottom: 14px;;">Labels</div>
+
+                     {% for label in all_labels %}
+                    <li class="label-list" role="menuitem" id="gfdg">
+                        <a class="label-anchor" tabindex="0"    style="    margin-left: -56px; margin-top: -31px;margin-bottom: -27px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="gb_Uc">
+                                <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z"></path>
+                            </svg>
+                            <span class="label-span" id="new-label">
+                                <label style="margin-left: -32px;margin-top: -63px;">{{label.label_name}} </label></span>
+                        </a>
+                    </li>
+                      {% endfor %}
+                <li style="margin-top: 22px;">
+
+
+                    <a href="#lable" data-toggle="modal" data-target="#mylabelModal" id="label-modal">
                         <span class="glyphicon glyphicon-pencil"></span>
                         <span class="fa fa-anchor solo"><b>Edit labels</b></span>
                     </a>
                 </li>
+                </div>
+                <!--</ul>-->
+
                 <li>
-                    <a href="{% url 'showarchive' %}">
+                <div class="sep">
+                    <hr class="seprator"><div class="sepText">
+                </div>
+               </div>
+                    <a href="{% url 'showarchive' %}" style="margin-top: -13px;">
                         <span class="glyphicon glyphicon-save"></span>
                         <span class="fa fa-anchor solo"><b>Archive</b></span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'showtrash' %}">
+                    <a href="{% url 'showtrash' %}" style="margin-top: -22px;">
                         <span class="glyphicon glyphicon-trash"></span>
                         <span class="fa fa-anchor solo"><b>Trash</b></span>
                     </a>
@@ -252,6 +291,54 @@
     <!--</div>-->
 <!--</div>-->
     <!--</div>-->
+ <div class="container">
+ <div class="modal fade" id="mylabelModal" role="dialog">
+     <div class="modal-dialog">
+            <div class="col-md-3" id="label-card">
+                <div class="panel panel-theme">
+                    <div class="panel-heading">
+                    <h3 class="panel-title">Edit Labels</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="delete-btn">
+                        <button type="button" id="delete-label-btn" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <form method="POST" action="{% url 'create_label' %}">
+                            <div class="form-group" style="margin-bottom: -8px;">
+                               <div class="group">
+                                  <input type="text" name="label" id="label" required style="margin-left: 24px;" class="label-txt-input" placeholder="Create new label ">
+                                  <span class="highlight"></span>
+                                  <span class="bar"></span>
+                                  <!--<label>Create new label </label>-->
+                                </div>
+                                <!--<input type="text" id="label"  name="label" placeholder="" class="tm-input form-control tm-input-info"/>-->
+                            </div>
+
+                            <div class="create-btn">
+                             <a href="#" id="ok-btn" class="btn btn-info btn-lg">
+                                   <span class="glyphicon glyphicon-ok"></span>
+                             </a>
+                            </div>
+
+                            <div class="sep">
+                              <hr class="seprator"><div class="sepText"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="label-btn-done"  type="submit">
+                                    <span class="btn-label"></i></span>Done</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+     </div>
+ </div>
+ </div>
+
 
 
     <main role="main" id="alert-msg" class="container">

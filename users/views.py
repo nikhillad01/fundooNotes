@@ -20,7 +20,7 @@ from django_ajax.decorators import ajax
 
 
 def home(request):
-    return render(request, 'users/home.html')
+    return render(request, 'users/aaa.html')
 
 def home1(request):
 
@@ -193,7 +193,7 @@ def activate(request, uidb64, token):
 
 
 from .serializers import NoteSerializer
-from .models import Notes
+from .models import Notes,Labels
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -292,6 +292,7 @@ from rest_framework.filters import OrderingFilter
 def createnote(request):
     if request.method == 'POST':
         # get username and password from submitted form
+
         title = request.POST.get('title')
         description = request.POST.get('description')
         color= request.POST.get('color')
@@ -323,7 +324,6 @@ def deleteenote(request, pk):
             # delete note
             note.delete()
 
-
         return redirect('readallnotes')
     allnotes = Notes.objects.all().order_by('-created_time')
     context = {  # 'title':title,# 'description':description
@@ -352,43 +352,6 @@ def updatenotes(request, pk):
         'allnotes': allnotes}
     return render(request, 'notes/create-note.html', context)
 
-
-class note_update(UpdateView):
-    model = Notes
-    template_name ='notes/create-note.html'
-    def post(self, request, *args, **kwargs):
-        print('----------------------------------')
-        response_data = {}
-        response_data['status'] = False
-        if kwargs.get('pk', None):
-            try:
-                print(request.POST,'mai hu')
-                print(kwargs,'mai hu kwargs')
-                pk = kwargs.get('pk', None)
-                print('i am pk', pk)
-                note = Notes.objects.get(pk=pk)
-                note.title = request.POST.get('modal-text')
-                note.description = request.POST.get('modal-textarea')
-                # obj.is_pinned = request.POST.get('is_pinned')
-                # obj.color = request.POST.get('color')
-                note.save()
-                response_data['status'] = True
-                response_data['message'] = "Updated Successfully"
-                allnotes = Notes.objects.all().order_by('-created_time')
-                context = {  # 'title':title,
-                    # 'description':description
-                    'allnotes': allnotes}
-                return render(request, 'notes/create-note.html', context)
-                # return redirect('show_notes') #i have added to redirect after successful updation
-            except Exception.DoesNotExist as e:
-                response_data['message'] = "Note doesnt exists"
-            except Exception as e:
-                response_data['message'] = 'something went wrong'
-
-        else:
-            response_data['message'] = "Missing note identifier (id)"
-        return HttpResponse(json.dumps(response_data), content_type='application/json')
-
 # this method is to make copy of note
 def copynote(request, pk):
     if request.method == 'GET':
@@ -409,8 +372,7 @@ def copynote(request, pk):
             'allnotes': allnotes}
     return render(request, 'notes/create-note.html', context)
 
-
-
+# method to set color
 @ajax
 def setcolor(request):
     if request.method == 'POST':
@@ -429,8 +391,7 @@ def setcolor(request):
     context = {  # 'title':title,
         # 'description':description
         'allnotes': allnotes}
-    return render(request, 'notes/create-note.html', context)
-
+    return render(request, 'notes/readallnotes.html', context)
 
 @ajax
 def isarchive(request):
@@ -464,10 +425,11 @@ def showarchive(request):
 
 def readallnotes(request):
     allnotes = Notes.objects.all().order_by('-created_time')
+    all_labels = Labels.objects.all().order_by('-created_time')
     print(allnotes)
     context = {  # 'title':title,
         # 'description':description
-        'allnotes': allnotes}
+        'allnotes': allnotes,'all_labels':all_labels}
     return render(request, 'notes/create-note.html', context)
 
 def showtrash(request):
@@ -514,4 +476,71 @@ def ispinned(request):
     return render(request, 'notes/create-note.html', context)
 
 
+def create_label(request):
+    if request.method == 'POST':
+        # label = Labels.objects.get(pk=pk)
+        # get note id and label name from submitted form
+        label_name = request.POST.get('label')
+        print(label_name)
+        label = Labels(label_name=label_name)
+        # title and description should not be null
+        if label_name!= "":
+            # save it to database
+            label.save()
+            return redirect('readallnotes')
+        # order notes according to it's creation time
+        all_labels = Labels.objects.all().order_by('-created_time')
 
+        context = {  # 'title':title,
+            # 'description':description
+            'all_labels': all_labels}
+    return render(request, 'notes/base.html', context)
+
+
+# method to delete label
+def delete_label(request,pk):
+    if request.method == 'GET':
+        # get label id
+        label = Labels.objects.get(pk=pk)
+        # delete label
+        label.delete()
+        return redirect('readallnotes')
+        # order notes according to it's creation time
+        allnotes = Notes.objects.all().order_by('-created_time')
+        print(allnotes)
+        context = {  # 'title':title,
+            # 'description':description
+            'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+
+# method to update label
+def update_label(request, pk):
+    if request.method == 'POST':
+        # get note with requested id
+        label = Labels.objects.get(pk=pk)
+        # set new tile to requested id
+        label.label_name = request.POST.get('label_name')
+        print(label.label_name)
+        # set new description to requested id
+
+        if label.label_name !="":
+            # save note
+            label.save()
+            return redirect('readallnotes')
+        allnotes = Notes.objects.all().order_by('-created_time')
+        context = {  # 'title':title,
+        # 'description':description
+        'allnotes': allnotes}
+    return render(request, 'notes/create-note.html', context)
+
+
+def addLabelOnNote(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        label = Labels.objects.get(id=id)
+        label.note_id = request.POST.get('note_id')
+        print(label.note_id)
+        label.save()
+
+        return redirect('readallnotes')
+    return render(request, 'notes/create-note.html')
